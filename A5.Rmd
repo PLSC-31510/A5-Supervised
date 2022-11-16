@@ -8,6 +8,13 @@ output: html_document
 Assigned: Nov 17, 2022
 Due: Nov 30, 2022
 
+```{r, message = F, warning = F}
+
+library(tidyverse)
+library(glmnet)
+
+```
+
 # Credit Claiming in Congressional Texts
 
 In *The Impression of Influence*, Grimmer, Westwood, and Messing analyze the rate members of Congress claim credit for government spending in their press releases. Members of Congress issue a lot of press releases: from 2005 to 2010, House members issues nearly *170,000* press releases.
