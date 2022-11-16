@@ -1,0 +1,102 @@
+---
+title: "Assignment 5"
+author: "PLSC 21510/31510"
+date: "2022"
+output: html_document
+---
+
+Assigned: Nov 17, 2022
+Due: Nov 30, 2022
+
+# Credit Claiming in Congressional Texts
+
+In *The Impression of Influence*, Grimmer, Westwood, and Messing analyze the rate members of Congress claim credit for government spending in their press releases. Members of Congress issue a lot of press releases: from 2005 to 2010, House members issues nearly *170,000* press releases.
+
+Given that it would be hard to analyze such a large collection by hand, GWM decided to use supervised learning methods. They hired a team of Stanford undergraduates to classify a random sample of 800 press releases as "credit claiming" or not. 
+
+The object `CreditClaim.RData` contains the list `credit_claim`. The first element of this list (named `x`) is the *document term matrix* (already preprocessed for you) and the second element (`y`) are the labels.
+
+Run the code below to get started.
+
+```{r}
+# Load `CreditClaim.RData` into R.
+load("CreditClaim.RData")
+dtm <- as.data.frame(credit_claim$x) # the DTM (X)
+dtm$y <- credit_claim$y # the Labels (Y)
+```
+
+## 1. Logistic vs. Lasso
+
+### 1.1
+
+Using a *logistic* regression, predict the credit claiming labels using all features. What warning message do you receive and what do you notice about the coefficients? (Warning: this might take awhile.)
+
+```{r}
+# YOUR CODE HERE
+```
+
+### 1.2
+
+Using the `glmnet` library, fit a LASSO regression (*logistic* model). Plot the number of non-zero coefficients at different values of λ. Describe what you notice.
+
+```{r}
+# YOUR CODE HERE
+```
+
+## 2. In-sample accuracy.
+
+### 2.1 
+
+Write a function called `misclassification` that takes two arguments `predict` and `true` (both numeric vectors of 0's or 1's), and returns the misclassification error (i.e., 1 - accuracy)
+
+```{r}
+# YOUR CODE HERE
+
+# uncomment to test -- should return 0.3333333
+# misclassification(c(0, 0, 1), c(0, 1, 1))
+```
+
+### 2.2
+
+Plot the in-sample misclassification error at different values of λ. 
+
+**Hint**: Use the `type = "class"` argument in `predict` to get the predicted class label. Make sure to convert to numeric before passing into your `misclassification` function.
+
+```{r}
+# YOUR CODE HERE
+``` 
+
+### 2.3
+
+What value of λ provides the lowest in-sample misclassification rate? Print the number of non-zero coefficients for that model.
+
+```{r}
+# YOUR CODE HERE
+```
+
+## 3. Cross Validation
+
+### 3.1
+
+Perform a 10-fold cross validation for the LASSO model, calculating the misclassification error for each value of λ. 
+
+Plot the out-of-sample error for each value of λ.
+
+**Hint**: The parameter `type.measure = "class` in `cv.glmnet()` will calculate the misclassification error for you.
+
+[NB: This might take awhile in computing time.]
+
+```{r}
+# set seed for random sampling
+set.seed(411)
+
+# YOUR CODE HERE
+```
+
+### 3.2
+
+What value of λ provides the lowest out-of-sample error? How does the out-of-sample error compare to the optimal in-sample error from the previous question? How many non-zero predictors are in this model?
+
+```{r}
+# YOUR CODE HERE
+```
